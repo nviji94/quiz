@@ -1,4 +1,5 @@
     const questionContainer = document.getElementById('question-container');
+    const quizcontainer = document.getElementById('quiz-container');
     const questionNumberContainer = document.getElementById('question-number-container');
     const answerButtons = document.getElementById('answer-buttons');
     const feedbackContainer = document.getElementById('feedback-container');
@@ -112,15 +113,33 @@
         score = 0;
         finalScoreContainer.classList.add('hidden');
         nextButton.classList.add('hidden');
-        loadQuestion();
+        loadQuestion(); 
         
     }
+    var counter = 10;   
+         
+    setInterval(function () {
+        counter--;
+    
+        if (counter >= 0) {
+            id = document.getElementById('timer-container');
+            id.innerHTML = counter;
+        }
+        if (counter === 0) {
+            id.innerHTML = 'Times Up!';
+            counter = 10;
+            nextQuestion();
+        } 
+    } , 1000);   
+    
 
     function loadQuestion() {
         const currentQuestion = questions[currentQuestionIndex];
         const questionNumber  = currentQuestionIndex + 1;
         questionNumberContainer.innerText = "Question : "+questionNumber+"/"+questions.length;
         questionContainer.innerText = currentQuestion.question;
+       
+       
         answerButtons.innerHTML = '';
         currentQuestion.answers.forEach(answer => {
             const button = document.createElement('button');
@@ -147,13 +166,17 @@
         finalScore.innerText = score + '/' + questions.length;
         finalScoreContainer.classList.remove('hidden');
         nextButton.classList.add('hidden');
+        quizcontainer.classList.add('hidden');
     }
 
 function nextQuestion() {
+    counter = 10;
     feedbackContainer.classList.add('hidden');
     nextButton.classList.add('hidden');
     answerButtons.classList.remove('hidden');
     currentQuestionIndex++;
+    
+ 
     if (currentQuestionIndex < questions.length) {
         loadQuestion();
     }
