@@ -106,6 +106,8 @@
         // Add more questions with their respective answers
     ];
 
+
+    
     startGame();
 
     function startGame() {
@@ -123,7 +125,7 @@
     
         if (counter >= 0) {
             id = document.getElementById('timer-container');
-            id.innerHTML = counter;
+            id.innerHTML = 'Timer :' + counter;
         }
         if (counter === 0) {
             id.innerHTML = 'Times Up!';
@@ -145,6 +147,7 @@
             const button = document.createElement('button');
             button.innerText = answer.text;
             button.classList.add('btn');
+            nextButton.classList.add('btnn');
             button.addEventListener('click', () => checkAnswer(answer.correct));
             answerButtons.appendChild(button);
             
@@ -158,6 +161,7 @@
         feedbackContainer.innerText = correct ? 'Correct!' : 'Wrong!';
         feedbackContainer.classList.remove('hidden');
         nextButton.classList.remove('hidden');
+        
         answerButtons.classList.add('hidden');
     }
 
